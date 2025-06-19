@@ -18,14 +18,15 @@ class AuthController
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
-
+        info(1);
         if (!Auth::attempt($credentials)) {
-            return response()->json(['message' => 'Credenciales inválidas'], 401);
+            info(2);
+            return response()->json(['error' => 'Credenciales inválidas'], 401);
         }
 
         $user = Auth::user();
         $token = $user->createToken('api-token')->plainTextToken;
-
-        return response()->json(['token' => $token]);
+        info('Token created: ' . $token);
+        return response()->json(['access_token' => $token]);
     }
 }

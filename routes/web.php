@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\Dashboard\ClientController;
+use App\Http\Controllers\Dashboard\ProjectController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -15,6 +16,12 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
 Route::resource('clients', ClientController::class);
+
+// Route::resource('projects', ProjectController::class);
+Route::get('/clients/{client}/projects', [ProjectController::class, 'index'])->name('projects.index');
+Route::get('/clients/{client}/projects/create', [ProjectController::class, 'create'])->name('projects.create');
+Route::post('/projects', [ProjectController::class, 'store'])->name('projects.store');
+
 
 });
 

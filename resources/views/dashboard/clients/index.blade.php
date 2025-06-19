@@ -31,6 +31,9 @@
                                     class="text-blue-600 hover:underline">Ver</a>
                                 <a href="{{ route('clients.edit', $client) }}"
                                     class="text-yellow-600 hover:underline ml-2">Editar</a>
+
+                                <a href="{{ route('projects.index', $client) }}"
+                                    class="text-green-600 hover:underline ml-2">Proyectos</a>
                             </td>
                         </tr>
                     @endforeach
