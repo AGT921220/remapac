@@ -11,12 +11,12 @@ class ProductController
     public function index()
     {
         $products = Product::
-        with(['inventories' => function ($query) {
+        with(['inventory' => function ($query) {
             $query->select('id', 'product_id', 'serial_number');
         }])
         ->get();
         $products->each(function ($product) {
-            $product->serial_numbers = $product->inventories->pluck('serial_number')->toArray();
+            $product->serial_numbers = $product->inventory->pluck('serial_number')->toArray();
         });
         // Logic to list products
         return view('dashboard.products.index', [

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController as ApiAuthController;
+use App\Http\Controllers\Api\AvaibalbeProductsController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -10,6 +11,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/test', [ApiAuthController::class, 'test']);
 Route::post('/login', [ApiAuthController::class, 'login']);
 Route::post('/register', [ApiAuthController::class, 'register']);
+// Route::get('/available-products', [AvaibalbeProductsController::class, 'index']);
+
 
 // Rutas protegidas con Sanctum middleware
 Route::middleware('auth:sanctum')->group(function () {
@@ -17,6 +20,9 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->user();
     });
     Route::post('/logout', [ApiAuthController::class, 'logout']);
+
+    Route::get('/available-products', [AvaibalbeProductsController::class, 'index']);
+
     // Aquí otras rutas protegidas, ej.:
     // Route::resource('clients', ClientController::class);
 });
