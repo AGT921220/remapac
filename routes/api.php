@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController as ApiAuthController;
 use App\Http\Controllers\Api\AvaibalbeProductsController;
+use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [ApiAuthController::class, 'logout']);
 
     Route::get('/available-products', [AvaibalbeProductsController::class, 'index']);
+    Route::resource('services', ServiceController::class);
 
     // Aquí otras rutas protegidas, ej.:
     // Route::resource('clients', ClientController::class);
