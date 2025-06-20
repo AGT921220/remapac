@@ -7,6 +7,7 @@ use App\Http\Controllers\Dashboard\ClientController;
 use App\Http\Controllers\Dashboard\InventoryController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\ProjectController;
+use App\Http\Controllers\Dashboard\ServicesController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,6 +21,7 @@ Route::middleware('auth')->group(function () {
 Route::resource('clients', ClientController::class);
 Route::resource('products', ProductController::class);
 Route::resource('inventory', InventoryController::class);
+Route::resource('services', ServicesController::class);
 
 
 // Route::resource('projects', ProjectController::class);
