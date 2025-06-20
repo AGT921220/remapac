@@ -27,6 +27,6 @@ class AuthController
         $user = Auth::user();
         $token = $user->createToken('api-token')->plainTextToken;
         info('Token created: ' . $token);
-        return response()->json(['access_token' => $token]);
+        return response()->json(['access_token' => $token], 200);
     }
 }
