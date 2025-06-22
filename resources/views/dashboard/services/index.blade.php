@@ -6,11 +6,9 @@
         <h2 class="text-2xl font-semibold mb-6 px-6">Servicios</h2>
         <div style="    margin: 0px 2rem;">
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            @foreach($services as $service)
-
-
-<div class="bg-gradient-to-br from-blue-600 via-purple-600 to-pink-500 rounded-2xl shadow-xl p-1 transition-transform transform hover:scale-105 hover:shadow-2xl duration-300">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                @foreach ($services as $service)
+                    {{-- <div class="bg-gradient-to-br from-blue-600 via-purple-600 to-pink-500 rounded-2xl shadow-xl p-1 transition-transform transform hover:scale-105 hover:shadow-2xl duration-300">
     <div class="bg-white rounded-2xl p-6 flex flex-col h-full space-y-4">
         <div class="flex justify-between items-start">
             <div>
@@ -24,15 +22,15 @@
             </svg>
         </div>
 
-        @if(!empty($service->products))
+        @if (!empty($service->products))
             <div>
                 <h4 class="text-lg font-semibold text-gray-700 mb-3">Productos rentados {{count($service->products)}}</h4>
                 <ul class="space-y-4" style="overflow-y: auto;
     max-height: 378px;">
-                    @foreach($service->products as $product)
+                    @foreach ($service->products as $product)
                         <li class="border rounded-xl p-4 bg-gray-50 shadow-sm hover:shadow-md transition">
                             <div class="flex gap-4">
-                                @if(!empty($product['image']))
+                                @if (!empty($product['image']))
                                     <img src="{{ asset($product['image']) }}" alt="Imagen del producto" class="w-24 h-24 object-cover rounded-lg border">
                                 @endif
                                 <div class="flex-1">
@@ -50,17 +48,110 @@
             </div>
         @endif
     </div>
-</div>
+</div> --}}
+
+
+
+                    <div class="p-4">
+                        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-1 gap-6">
+                            <!-- START: Card de Servicio -->
+                            <div
+                                class="bg-white rounded-xl border border-gray-200 shadow-sm h-[540px] flex flex-col justify-between group">
+
+                                <!-- Header del servicio -->
+                                <div
+                                    class="p-4 border-b border-gray-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                                    <div>
+                                        <h2 class="text-base font-semibold text-gray-900 leading-tight">
+                                            {{ $service->client_name }}</h2>
+                                        <span
+                                            class="mt-1 inline-block px-2 py-0.5 text-xs font-medium text-gray-800 bg-yellow-100 rounded">
+                                            {{ $service->status_text }}
+                                        </span>
+                                    </div>
+                                    <div class="text-xs text-gray-600 space-y-0.5">
+                                        <p><strong>Inicio:</strong> {{ $service->date_start }} </p>
+                                        <p><strong>Fin:</strong> {{ $service->date_end }} </p>
+                                        <p><strong>Total:</strong> ${{ $service->total_price }} </p>
+                                    </div>
+                                </div>
+
+                                <!-- Productos -->
+                                @if (!empty($service->products))
+                                    <div class="p-4 flex-1 overflow-y-auto">
+                                        <h4 class="text-xs font-semibold text-gray-500 uppercase mb-2">Productos</h4>
+                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                            @foreach ($service->products as $product)
+                                                <div
+                                                    class="h-[260px] bg-gray-50 border border-gray-100 rounded-lg p-3 text-xs flex flex-col justify-between cursor-default">
+                                                    @if (!empty($product['image']))
+                                                        <img src="{{ asset($product['image']) }}"
+                                                            alt="Imagen del producto"
+                                                            class="w-full h-20 object-cover rounded border border-gray-200 mb-2">
+                                                    @endif
+                                                    <div class="flex-1 space-y-0.5 text-gray-700">
+                                                        <p><strong>Desc:</strong> {{ $product['description'] }}</p>
+                                                        <p><strong>Marca:</strong> {{ $product['brand'] }}</p>
+                                                        <p><strong>Proyecto:</strong>
+                                                            {{ $product['project_name'] ?? 'No asignado' }}</p>
+                                                        <p><strong>Cant:</strong> {{ $product['quantity'] }}</p>
+                                                        <p><strong>Serie(s):</strong> {{ $product['serial_numbers'] }}
+                                                        </p>
+                                                        <p><strong>Precio:</strong> ${{ $product['total_price'] }}</p>
+
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @endif
+
+
+
+                                <!-- Botones del servicio -->
+                                @if ($service->status === 'pending')
+                                    <div class="flex justify-end gap-2 px-4 py-3 border-t border-gray-100 bg-gray-50">
+                                        <button onclick="acceptService({{ $service->id }})"
+                                            class="px-3 py-1.5 text-xs font-medium text-green-700 bg-green-100 rounded hover:bg-green-200 transition">
+                                            Aceptar
+                                        </button>
+                                        <button onclick="declineService({{ $service->id }})"
+                                            class="px-3 py-1.5 text-xs font-medium text-red-700 bg-red-100 rounded hover:bg-red-200 transition">
+                                            Declinar
+                                        </button>
+                                    </div>
+                                @endif
 
 
 
 
-
+                            </div>
+                            <!-- END: Card de Servicio -->
+                        </div>
+                    </div>
                 @endforeach
-        </div>
+            </div>
 
         </div>
     </div>
+
+
+
+    <form id="actionForm" method="POST" action="{{ route('services.action') }}" style="display: none;">
+        @csrf
+        <input type="hidden" name="service_id" id="formServiceId">
+        <input type="hidden" name="action" id="formAction">
+        <input type="hidden" name="reason" id="formReason">
+    </form>
+
+
+
+
+
+
+
+
+
 
 
 </x-app-layout>

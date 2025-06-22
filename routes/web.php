@@ -23,6 +23,8 @@ Route::resource('products', ProductController::class);
 Route::resource('inventory', InventoryController::class);
 Route::resource('services', ServicesController::class);
 
+Route::post('services/action', [ServicesController::class, 'action'])->name('services.action');
+
 
 // Route::resource('projects', ProjectController::class);
 Route::get('/clients/{client}/projects', [ProjectController::class, 'index'])->name('projects.index');
