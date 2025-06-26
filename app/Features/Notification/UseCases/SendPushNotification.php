@@ -67,7 +67,7 @@ class SendPushNotification
             ->post($url, $payload);
 
         if ($response->failed()) {
-            throw new \Exception('Error al enviar la notificación: ' . $response->body());
+//            throw new \Exception('Error al enviar la notificación: ' . $response->body());
         }
 
         return $response->json();
