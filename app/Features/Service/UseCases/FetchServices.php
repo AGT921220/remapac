@@ -26,8 +26,10 @@ class FetchServices
 
     private function getBaseQuery(): Builder
     {
-        return Service::select('services.id', 'services.user_id', 'services.status', 'users.name as client_name', 'services.date_start', 'services.date_end')
+        return Service::select('services.id', 'services.user_id', 'services.status', 'users.name as client_name', 'services.date_start', 'services.date_end',
+        'projects.name as project_name')
             ->join('users', 'users.id', '=', 'services.user_id')
+            ->join('projects', 'projects.id', '=', 'services.project_id')
             ->with([
                 'serviceDetails.product:id,description,brand,price,image',
                 'serviceDetails.inventory:id,serial_number'

@@ -89,6 +89,6 @@ utils/paste-master:
 ngrok:
 	@ngrok http --host-header=rewrite http://localhost:${PORT_NGINX} --response-header-add="Access-Control-Allow-Origin: *";
 pull-images-server:
-	scp -r root@$(SERVER_IP):/home/tuticketeus/public/images ./public
+	scp -r root@$(SERVER_IP):/home/remapac/public/images ./public
 push-images-server:
-	scp -r ./public/images root@$(SERVER_IP):/home/tuticketeus/public
+	scp -r ./public/images root@$(SERVER_IP):/home/remapac/public

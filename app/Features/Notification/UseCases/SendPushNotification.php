@@ -29,10 +29,6 @@ class SendPushNotification
 
     public function sendNotification(string $deviceToken, string $title, string $body, string $url)
     {
-        info('sendNotification');
-        info('title: ' . $title);
-        info('body: ' . $body);
-        info('url: ' . $url);
         $accessToken = $this->getAccessToken();
 
         $url = "https://fcm.googleapis.com/v1/projects/{$this->projectId}/messages:send";
